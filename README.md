@@ -74,3 +74,13 @@ java-web-base
  - 前端部署完毕，就可以访问项目了，账号：admin，密码：admin
  
  <br>
+
+
+## make 打包
+    注意：Makefile 文件里 main.go 的路径
+
+    make docker-all VERSION="staging_v1.0.0" ENV_SERVER_MODE="staging"
+    make docker-all VERSION="staging_v0.0.1" ENV_SERVER_MODE="dev"
+    make docker-all VERSION="prod_v0.0.1" ENV_SERVER_MODE="prod"
+
+    docker buildx build --platform linux/amd64 --no-cache -t java-web-base .

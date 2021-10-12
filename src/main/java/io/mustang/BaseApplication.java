@@ -1,5 +1,3 @@
-
-
 package io.mustang;
 
 import lombok.extern.slf4j.Slf4j;
