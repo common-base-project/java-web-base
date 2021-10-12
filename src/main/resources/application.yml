@@ -10,7 +10,7 @@ server:
     context-path: /
 
 spring:
-  # 环境 dev|test|prod
+  # 环境 dev|staging|prod
   profiles:
     active: dev
   # jackson时间格式化

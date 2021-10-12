@@ -12,4 +12,5 @@ EXPOSE 9080
 VOLUME /tmp
 ADD ./target/java-web-base.jar  /app.jar
 RUN bash -c 'touch /app.jar'
+
 ENTRYPOINT ["java","-jar","/app.jar"]

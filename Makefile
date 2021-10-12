@@ -16,7 +16,7 @@ RELEASE_VERSION=$(VERSION)
 endif
 
 # docker相关
-DOCKER_REGISTRY=harbor.5qipa.com:6443/games
+DOCKER_REGISTRY=10.236.101.13:8443/common
 DOCKER_TARGET=$(DOCKER_REGISTRY)/$(NAME):$(RELEASE_VERSION)
 
 
@@ -24,11 +24,13 @@ DOCKER_TARGET=$(DOCKER_REGISTRY)/$(NAME):$(RELEASE_VERSION)
 all: build-dev
 
 build-dev:
-	@mvn clean install
+	@mvn clean package -P$(ENV_SERVER_MODE)
+	#@mvn clean package
 	@echo "$(NAME) build okay"
 
 build-release:
-	@mvn clean install
+	@mvn clean package -P$(ENV_SERVER_MODE)
+	#@mvn clean package
 	@echo "$(NAME) build okay"
 
 clean:
