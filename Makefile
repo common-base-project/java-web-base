@@ -26,25 +26,28 @@ all: build-dev
 build-dev:
 	@mvn clean package -P$(ENV_SERVER_MODE)
 	#@mvn clean package
-	@echo "$(NAME) build okay"
+	@echo "==================$(NAME) build okay=================="
 
 build-release:
 	@mvn clean package -P$(ENV_SERVER_MODE)
 	#@mvn clean package
-	@echo "$(NAME) build okay"
+	@echo "==================$(NAME) build okay=================="
 
 clean:
 	@mvn clean
-	@echo "clean okay"
+	@echo "==================clean okay=================="
 
 docker-build: clean build-release
 	@docker buildx build --platform linux/amd64 --no-cache -t $(DOCKER_TARGET) --build-arg modeenv=$(ENV_SERVER_MODE) --build-arg procname=$(NAME) .
-	@echo "docker-build okay"
+	@echo "==================docker-build okay=================="
 
 docker-clean:
 	docker rmi $(DOCKER_TARGET)
+	@echo "==================docker-clean okay=================="
 
 docker-push:
 	docker push $(DOCKER_TARGET)
+	@echo "==================docker-push okay=================="
 
 docker-all: docker-build docker-push
+	@echo "==================docker-all okay=================="

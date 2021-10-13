@@ -4,13 +4,12 @@ package io.mustang.datasource.aspect;
 
 import io.mustang.datasource.annotation.DataSource;
 import io.mustang.datasource.config.DynamicContextHolder;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -22,11 +21,11 @@ import java.lang.reflect.Method;
  *
  * @author Mustang
  */
+@Slf4j
 @Aspect
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class DataSourceAspect {
-    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     @Pointcut("@annotation(io.mustang.datasource.annotation.DataSource) " +
             "|| @within(io.mustang.datasource.annotation.DataSource)")
@@ -51,14 +50,15 @@ public class DataSourceAspect {
             }
 
             DynamicContextHolder.push(value);
-            logger.debug("set datasource is {}", value);
+            log.debug("set datasource is {}", value);
         }
 
         try {
             return point.proceed();
         } finally {
             DynamicContextHolder.poll();
-            logger.debug("clean datasource");
+            log.debug("clean datasource");
         }
     }
+
 }
